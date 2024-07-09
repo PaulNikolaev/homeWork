@@ -6,13 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Human implements Serializable {
+    private int id;
     private String name;
     LocalDate birthDate;
     Gender gender;
     Human mother, father;
     List<Human> children;
 
-    public Human(String name, LocalDate birthDate, Gender gender, Human mather, Human father) {
+    public Human(int id, String name, LocalDate birthDate, Gender gender, Human mather, Human father) {
+        this.id = id;
         this.name = name;
         this.birthDate = birthDate;
         this.gender = gender;
@@ -21,8 +23,8 @@ public class Human implements Serializable {
         this.children = new ArrayList<>();
     }
 
-    public Human(String name, LocalDate birthDate, Gender gender) {
-        this(name, birthDate, gender, null, null);
+    public Human(int id, String name, LocalDate birthDate, Gender gender) {
+        this(id, name, birthDate, gender, null, null);
     }
 
     public String getName() {
@@ -55,6 +57,9 @@ public class Human implements Serializable {
 
     public void setMother(Human mother) {
         this.mother = mother;
+        if (mother != null && !mother.getChildren().contains(this)) {
+            mother.addChild(this);
+        }
     }
 
     public Human getFather() {
@@ -63,6 +68,9 @@ public class Human implements Serializable {
 
     public void setFather(Human father) {
         this.father = father;
+        if (father != null && !father.getChildren().contains(this)) {
+            father.addChild(this);
+        }
     }
 
     public List<Human> getChildren() {
@@ -77,10 +85,6 @@ public class Human implements Serializable {
         this.children = children;
     }
 
-    public void addChildren(Human children) {
-        this.children.add(children);
-    }
-
 
     @Override
     public String toString() {
@@ -89,7 +93,9 @@ public class Human implements Serializable {
 
     public String getInfo() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Имя: ");
+        sb.append("ID: ");
+        sb.append(id);
+        sb.append(", Имя: ");
         sb.append(name);
         sb.append(", пол: ");
         sb.append(getGender());
@@ -132,7 +138,6 @@ public class Human implements Serializable {
         }
         return res.toString();
     }
-
 
 
 }

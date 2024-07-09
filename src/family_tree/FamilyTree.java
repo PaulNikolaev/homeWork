@@ -5,66 +5,33 @@ import human.Human;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
-public class FamilyTree implements Serializable {
-    private List<Human> members;
+public class FamilyTree implements Serializable, Iterable<Human> {
+    private List<Human> humans;
 
     public FamilyTree() {
-        this.members = new ArrayList<>();
+        this.humans = new ArrayList<>();
     }
 
     // Добавление человека в семейное дерево
     public void addHuman(Human human) {
-        this.members.add(human);
+        this.humans.add(human);
     }
 
-    //    Добавление родственных связей ребенок - родитель
-    public void addChild(Human parent, Human child) {
-        if (parent == null || child == null) {
-            throw new IllegalArgumentException("Родитель или ребенок не могут быть равны нулю.");
-        }
-
-        if (!parent.getChildren().contains(child)) {
-            parent.addChild(child);
-        }
-
-        if (parent.getGender().equals(Gender.Female)) {
-            if (child.getMother() == null || !child.getMother().equals(parent)) {
-                child.setMother(parent);
-            }
-        } else {
-            if (child.getFather() == null || !child.getFather().equals(parent)) {
-                child.setFather(parent);
-            }
-        }
+    public void sortByName() {
+        humans.sort(new HumanComparatorByName());
     }
 
-    public List<Human> getChildrenOf(Human human) {
-        return human.getChildren();
+    public void sortByBirthDate() {
+        humans.sort(new HumanComparatorByBirthDate());
     }
 
-    public List<Human> getParentsOf(Human human) {
-        List<Human> parents = new ArrayList<>();
-        parents.add(human.getFather());
-        parents.add(human.getMother());
-        return parents;
+    @Override
+    public Iterator<Human> iterator() {
+        return new HumanIterator(humans);
     }
 
-    // Поиск человека по имени
-    public Human findPersonByName(String name) {
-        for (Human human : members) {
-            if (human.getName().equals(name)) {
-                return human;
-            }
-        }
-        return null;
-    }
-
-    // Печать всех членов дерева
-    public void printFamilyTree() {
-        for (Human human : members) {
-            System.out.println(human);
-        }
-    }
 }

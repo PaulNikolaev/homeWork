@@ -1,9 +1,13 @@
-package writer;
+package service;
 
 import java.io.*;
 
 public class FileHandler implements Writer {
-    private String filePath = "src/writer/familyTree.txt";
+    private String filePath;
+
+    public FileHandler(String filePath) {
+        this.filePath = filePath;
+    }
 
     @Override
     public void save(Serializable serializable) {
