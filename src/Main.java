@@ -18,10 +18,15 @@ public class Main {
         //service.saveTree("src/saved_tree/familyTree.txt");
         //Service loadTree = Service.readTree("src/saved_tree/familyTree.txt");
         //System.out.println(loadTree.getHumanListInfo());
-        service.sortByName();
-        System.out.println(service.getHumanListInfo());
-        service.sortByBirthDate();
-        System.out.println(service.getHumanListInfo());
+        //service.sortByName();
+        //System.out.println(service.getHumanListInfo());
+        //service.sortByBirthDate();
+        //System.out.println(service.getHumanListInfo());
+
+        String  d = service.findHumanById(4);
+        System.out.println(d);
+        String f = service.findHumanByName("Наумов Алексей");
+        System.out.println(f);
     }
 
 

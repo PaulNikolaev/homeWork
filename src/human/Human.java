@@ -1,17 +1,19 @@
 package human;
 
+import family_tree.ItemFamilyTree;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Human implements Serializable {
+public class Human implements Serializable, ItemFamilyTree {
     private int id;
     private String name;
-    LocalDate birthDate;
-    Gender gender;
-    Human mother, father;
-    List<Human> children;
+    private LocalDate birthDate;
+    private Gender gender;
+    private Human mother, father;
+    private List<Human> children;
 
     public Human(int id, String name, LocalDate birthDate, Gender gender, Human mather, Human father) {
         this.id = id;
@@ -27,64 +29,39 @@ public class Human implements Serializable {
         this(id, name, birthDate, gender, null, null);
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
 
     public Gender getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
-        this.gender = gender;
+
+    @Override
+    public void setMother(Object mother) {
+
     }
 
-    public Human getMother() {
-        return mother;
+    @Override
+    public void addChild(Object childToUpdate) {
+
     }
 
-    public void setMother(Human mother) {
-        this.mother = mother;
-        if (mother != null && !mother.getChildren().contains(this)) {
-            mother.addChild(this);
-        }
-    }
+    @Override
+    public void setFather(Object fatherToUpdate) {
 
-    public Human getFather() {
-        return father;
     }
-
-    public void setFather(Human father) {
-        this.father = father;
-        if (father != null && !father.getChildren().contains(this)) {
-            father.addChild(this);
-        }
-    }
-
-    public List<Human> getChildren() {
-        return children;
-    }
-
-    public void addChild(Human child) {
-        this.children.add(child);
-    }
-
-    public void setChildren(List<Human> children) {
-        this.children = children;
-    }
-
 
     @Override
     public String toString() {
