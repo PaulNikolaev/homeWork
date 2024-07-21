@@ -54,8 +54,6 @@ public class Service implements Serializable {
         familyTree.setParentId(childId, parentId);
     }
 
-
-
     // Поиск человека по ID
     public String findHumanById(int id) {
         Human found = familyTree.findHumanById(id);
@@ -71,19 +69,6 @@ public class Service implements Serializable {
             return "Имя не может быть null";
         }
     }
-
-    // Сохранение семейного дерева в файл
-    public void saveTree(Service tree) {
-        FileHandler fileHandler = new FileHandler();
-        fileHandler.save(tree);
-    }
-
-    // Чтение семейного дерева из файла и создание нового сервиса
-    public Service readTree() {
-        FileHandler fileHandler = new FileHandler();
-        return (Service) fileHandler.read();
-    }
-
 
     // Сортировка по имени
     public void sortByName() {
@@ -110,4 +95,5 @@ public class Service implements Serializable {
     public int familyTreeSize() {
         return familyTree.familyTreeSize();
     }
+
 }

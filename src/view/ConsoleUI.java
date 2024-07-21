@@ -141,7 +141,7 @@ public class ConsoleUI implements View, Serializable {
 
     }
 
-    public static boolean isValidDate(String dateStr) {
+    private boolean isValidDate(String dateStr) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         try {
             LocalDate.parse(dateStr, formatter);

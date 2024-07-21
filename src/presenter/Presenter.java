@@ -1,6 +1,7 @@
 package presenter;
 
 import model.human.Gender;
+import model.service.FileHandler;
 import model.service.Service;
 import view.View;
 
@@ -11,12 +12,14 @@ public class Presenter implements Serializable {
     private static final long serialVersionUID = 1L;
     private View view;
     private Service service;
+    private FileHandler fileHandler;
 
 
 
     public Presenter(View view) {
         this.view = view;
         service = new Service();
+        fileHandler = new FileHandler();
     }
 
     public void addHuman(String name, LocalDate birthDate, Gender gender) {
@@ -41,11 +44,11 @@ public class Presenter implements Serializable {
 
 
     public void saveTree() {
-        service.saveTree(service);
+        fileHandler.save(service);
     }
 
     public void readTree() {
-        Service loadedService = service.readTree();
+        Service loadedService = (Service) fileHandler.read();
         if (loadedService != null) {
             this.service = loadedService;
             view.printAnswer("Дерево успешно загружено.");
